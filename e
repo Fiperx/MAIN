@@ -1,2 +1,2 @@
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/RedJDark/MAIN/refs/heads/main/ORIGINAL%20KEY"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Fiperx/MAIN/refs/heads/main/ORIGINAL%20KEY"))()
