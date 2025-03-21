@@ -1,122 +1,132 @@
--- Services
-local Players = game:GetService("Players")
-local UserInputService = game:GetService("UserInputService")
-local RunService = game:GetService("RunService")
-local Camera = workspace.CurrentCamera
+--[[
+ .____                  ________ ___.    _____                           __                
+ |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
+ |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
+ |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
+ |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
+         \/          \/         \/    \/                \/     \/     \/                   
+          \_Welcome to LuaObfuscator.com   (Alpha 0.10.8) ~  Much Love, Ferib 
+]]--
 
--- Player and Character Setup
-local LocalPlayer = Players.LocalPlayer
-local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
-local HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
+local v0=game:GetService("Players")
+local v1=game:GetService("UserInputService")
+local v2=game:GetService("RunService")
+local v3=workspace.CurrentCamera
+local v4=v0.LocalPlayer
+local v5=v4.Character or v4.CharacterAdded:Wait()
+local v6=v5:WaitForChild("HumanoidRootPart")
 
--- Variables
-local Ball
-local ControllingBall = false
-local BallMoving = true
-local Speed = 70
+local v7
+local v8=false
+local v9=true
+local v10=70
 
--- Create UI Elements
-local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "ControlBallUI"
-ScreenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
+local v11=Instance.new("ScreenGui")
+v11.Name="ControlBallUI"
+v11.Parent=v4:WaitForChild("PlayerGui")
 
--- Control Button
-local ControlButton = Instance.new("TextButton")
-ControlButton.Size = UDim2.new(0.15, 0, 0.08, 0)
-ControlButton.Position = UDim2.new(0.1, 0, 0.1, 0)
-ControlButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-ControlButton.Text = "CONTROL"
-ControlButton.TextScaled = true
-ControlButton.Parent = ScreenGui
+local v14=Instance.new("TextButton")
+v14.Size=UDim2.new(0.15, 0, 0.08, 0)
+v14.Position=UDim2.new(0.1, 0, 0.1, 0)
+v14.BackgroundColor3=Color3.fromRGB(255,0,0)
+v14.Text="CONTROL"
+v14.TextScaled=true
+v14.Parent=v11
 
--- Stop Button
-local StopButton = Instance.new("TextButton")
-StopButton.Size = UDim2.new(0.15, 0, 0.08, 0)
-StopButton.Position = UDim2.new(0.75, 0, 0.1, 0)
-StopButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
-StopButton.Text = "STOP"
-StopButton.TextScaled = true
-StopButton.Visible = false
-StopButton.Parent = ScreenGui
+local v21=Instance.new("TextButton")
+v21.Size=UDim2.new(0.15, 0, 0.08, 0)
+v21.Position=UDim2.new(0.75, 0, 0.1, 0)
+v21.BackgroundColor3=Color3.fromRGB(0,255,0)
+v21.Text="STOP"
+v21.TextScaled=true
+v21.Visible=false
+v21.Parent=v11
 
--- Speed Adjustment UI
-local SpeedFrame = Instance.new("Frame")
-SpeedFrame.Size = UDim2.new(0.3, 0, 0.12, 0)
-SpeedFrame.Position = UDim2.new(0.35, 0, 0.6, 0)
-SpeedFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-SpeedFrame.Visible = false
-SpeedFrame.Parent = ScreenGui
+local v29=Instance.new("Frame")
+v29.Size=UDim2.new(0.3, 0, 0.12, 0)
+v29.Position=UDim2.new(0.35, 0, 0.6, 0)
+v29.BackgroundColor3=Color3.fromRGB(25, 25, 25)
+v29.Visible=false
+v29.Parent=v11
 
-local SpeedLabel = Instance.new("TextLabel")
-SpeedLabel.Size = UDim2.new(1, 0, 0.3, 0)
-SpeedLabel.BackgroundTransparency = 1
-SpeedLabel.Text = "Speed: " .. Speed
-SpeedLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-SpeedLabel.TextScaled = true
-SpeedLabel.Parent = SpeedFrame
+local v35=Instance.new("TextLabel")
+v35.Size=UDim2.new(1, 0, 0.3, 0)
+v35.BackgroundTransparency=1
+v35.Text="Speed: 70"
+v35.TextColor3=Color3.fromRGB(255,255,255)
+v35.TextScaled=true
+v35.Parent=v29
 
--- Ball Finder Function
-local function FindBall()
+local v70=Instance.new("TextLabel")
+v70.Size=UDim2.new(0.15, 0, 0.05, 0)
+v70.Position=UDim2.new(0.5, 0, 0.88, 0)
+v70.BackgroundTransparency=1
+v70.Text="Made by ViperX"
+v70.TextColor3=Color3.fromRGB(255,255,0)
+v70.TextScaled=true
+v70.Parent=v11
+
+local v78=Instance.new("TextLabel")
+v78.Size=UDim2.new(0.5, 0, 0.1, 0)
+v78.Position=UDim2.new(0.25, 0, 0.9, 0)
+v78.BackgroundColor3=Color3.fromRGB(0,0,0)
+v78.Text="Thanks For Being A Tester!"
+v78.TextColor3=Color3.fromRGB(255,255,0)
+v78.TextScaled=true
+v78.Parent=v11
+
+task.wait(5)
+v78:Destroy()
+
+local function findBall()
     return workspace:FindFirstChild("Football")
 end
 
--- Ball Controller Function
-local function ControlBall()
-    Ball = FindBall()
-    if not Ball then
-        warn("No Ball Found!")
-        return
-    end
-
-    ControllingBall = not ControllingBall
-    BallMoving = true
-
-    -- Set Camera Subject
-    Camera.CameraSubject = ControllingBall and Ball or Character
-
-    -- Show UI Elements
-    StopButton.Visible = ControllingBall
-    SpeedFrame.Visible = ControllingBall
-    StopButton.BackgroundColor3 = BallMoving and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
-
-    -- Apply Velocity to Ball
-    if ControllingBall then
-        local BodyVelocity = Instance.new("BodyVelocity")
-        BodyVelocity.MaxForce = Vector3.new(1000000, 1000000, 1000000)
-        BodyVelocity.Parent = Ball
-
-        RunService.Heartbeat:Connect(function()
-            if not ControllingBall or not Ball or not Ball.Parent then
-                BodyVelocity:Destroy()
+local function controlBall()
+    v7=findBall()
+    if not v7 then warn("No Ball Found!") return end
+    v8=not v8
+    v9=true
+    v3.CameraSubject=(v8 and v7) or v5
+    v21.Visible=v8
+    v29.Visible=v8
+    if v8 then
+        local v92=Instance.new("BodyVelocity")
+        v92.MaxForce=Vector3.new(100000, 500000, 500000)
+        v92.Parent=v7
+        v2.Heartbeat:Connect(function()
+            if not v8 or not v7 or not v7.Parent then
+                v92:Destroy()
                 return
             end
-            BodyVelocity.Velocity = BallMoving and (Camera.CFrame.LookVector * Speed) or Vector3.new(0, 0, 0)
+            v92.Velocity=(v9 and (v3.CFrame.LookVector * v10)) or Vector3.new(0,0,0)
         end)
     end
 end
 
--- Stop Ball Function
-local function StopBall()
-    BallMoving = not BallMoving
-    StopButton.BackgroundColor3 = BallMoving and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
+local function stopBall()
+    v9=not v9
+    v21.BackgroundColor3=v9 and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
 end
 
--- Keybinds
-UserInputService.InputBegan:Connect(function(input, processed)
-    if processed then return end
-    if input.KeyCode == Enum.KeyCode.G then
-        ControlBall()
-    elseif input.KeyCode == Enum.KeyCode.F then
-        StopBall()
-    elseif input.KeyCode == Enum.KeyCode.Z then
-        Speed = math.max(Speed - 10, 10)
-        SpeedLabel.Text = "Speed: " .. Speed
-    elseif input.KeyCode == Enum.KeyCode.X then
-        Speed = math.min(Speed + 10, 350)
-        SpeedLabel.Text = "Speed: " .. Speed
+v1.InputBegan:Connect(function(v98)
+    if v98.KeyCode==Enum.KeyCode.Z then
+        v10=math.max(v10-10,10)
+        v35.Text="Speed: " .. tostring(v10)
+    elseif v98.KeyCode==Enum.KeyCode.X then
+        v10=math.min(v10+10,350)
+        v35.Text="Speed: " .. tostring(v10)
     end
 end)
 
--- Button Click Listeners
-ControlButton.MouseButton1Click:Connect(ControlBall)
-StopButton.MouseButton1Click:Connect(StopBall)
+v1.InputBegan:Connect(function(v99,v100)
+    if v100 then return end
+    if v99.KeyCode==Enum.KeyCode.G then
+        controlBall()
+    elseif v99.KeyCode==Enum.KeyCode.F then
+        stopBall()
+    end
+end)
+
+v21.MouseButton1Click:Connect(stopBall)
+v14.MouseButton1Click:Connect(controlBall)
