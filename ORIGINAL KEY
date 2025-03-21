@@ -1,4 +1,4 @@
-local CorrectKey = "CONTROL"
+local CorrectKey = "VIPERX303030TESTER"
 
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
