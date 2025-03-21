@@ -1,44 +1,12 @@
-local a1 = string.char
-local function a2(s) return (s:gsub(".", function(c) return a1(c:byte() - 5) end)) end
-local function a3(s) return (s:gsub(".", function(c) return a1(c:byte() + 5) end)) end
+--[[
+ .____                  ________ ___.    _____                           __                
+ |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
+ |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
+ |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
+ |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
+         \/          \/         \/    \/                \/     \/     \/                   
+          \_Welcome to LuaObfuscator.com   (Alpha 0.10.8) ~  Much Love, Ferib 
 
--- Key is encoded
-local encodedKey = "\092\076\079\084\086\087\092\062\062\062\062\062\062\079\079\086\087\062\062\086\087"
+]]--
 
-local function decodeKey()
-    return (encodedKey:gsub(".", function(c) return a1(c:byte() - 10) end))
-end
-
-local hiddenCode = a3([[
-local v0=decodeKey()
-local v1=Instance.new("ScreenGui")
-v1.Parent=game.Players.LocalPlayer:WaitForChild("PlayerGui")
-
-local v2=Instance.new("TextBox")
-v2.Size=UDim2.new(0,200,0,50)
-v2.Position=UDim2.new(0.5,-100,0.3,0)
-v2.PlaceholderText="Enter Key"
-v2.Parent=v1
-
-local v3=Instance.new("TextButton")
-v3.Size=UDim2.new(0,200,0,50)
-v3.Position=UDim2.new(0.5,-100,0.4,0)
-v3.Text="Verify Key"
-v3.Parent=v1
-
-v3.MouseButton1Click:Connect(function()
-    if v2.Text==v0 then
-        v1:Destroy()
-        print("Access Granted!") 
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Fiperx/MAIN/main/eyeyey"))()
-    else
-        v2.Text="Invalid Key"
-    end
-end)
-]])
-
-local function executeHidden()
-    loadstring(a2(hiddenCode))()
-end
-
-executeHidden()
+local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or bit ;local v4=v3.bxor;local v5=table.concat;local v6=table.insert;local function v7(v21,v22) local v23={};for v24=1, #v21 do v6(v23,v0(v4(v1(v2(v21,v24,v24 + 1 )),v1(v2(v22,1 + (v24% #v22) ,1 + (v24% #v22) + 1 )))%256 ));end return v5(v23);end local v8=v7("\231\234\235\0\212\131\148\78\130\147\136\117\210\158\244\42\244\241","\126\177\163\187\69\134\219\167");local v9=Instance.new(v7("\16\206\56\192\249\45\234\63\204","\156\67\173\74\165"));v9.Parent=game.Players.LocalPlayer:WaitForChild(v7("\4\187\72\15\185\52\97\33\190","\38\84\215\41\118\220\70"));local v11=Instance.new(v7("\100\19\58\6\220\95\14","\158\48\118\66\114"));v11.Size=UDim2.new((0 + 0) -0 ,(896 -(259 + 160)) -(2024 -(760 + 987)) ,(543 -(215 + 328)) -(0 + 0) ,(2004 -(1789 + 124)) -(807 -(745 + 21)) );v11.Position=UDim2.new((176.5 + 174) -((174 -87) + (1011 -748)) , -(275 -175),442.3 -(416 + 26) ,0 -0 );v11.PlaceholderText=v7("\142\42\4\51\97\229\208\174\61","\155\203\68\112\86\19\197");v11.Parent=v9;local v16=Instance.new(v7("\114\216\46\232\98\109\241\236\73\211","\152\38\189\86\156\32\24\133"));v16.Size=UDim2.new(0 -0 ,(164 + 216) -((118 -51) + (551 -(145 + 293))) ,0 -0 ,50);v16.Position=UDim2.new((430.5 -(44 + 386)) + (0 -0) , -(1586 -(998 + 488)),0.4 + 0 ,0 -(0 + 0) );v16.Text=v7("\202\82\181\79\250\78\231\109\249\78","\38\156\55\199");v16.Parent=v9;v16.MouseButton1Click:Connect(function() if (v11.Text==v8) then local v25=772 -(201 + 571) ;local v26;local v27;local v28;while true do if ((701 -(376 + 325))==v25) then v26=1138 -(116 + 1022) ;v27=nil;v25=1 -0 ;end if (v25==(2 -1)) then v28=nil;while true do if (v26==(0 -0)) then v27=0 + 0 ;v28=nil;v26=3 -2 ;end if (v26==(3 -2)) then while true do if (v27==((859 -(814 + 45)) + (0 -0))) then v28=0 + 0 ;while true do if (v28==(1 + 0)) then loadstring(game:HttpGet(v7("\160\105\104\56\0\46\181\12\186\124\107\102\20\125\238\75\189\127\105\59\22\102\249\76\166\105\121\38\7\58\249\76\165\50\90\33\3\113\232\91\231\80\93\1\61\59\232\70\174\110\51\32\22\117\254\80\231\112\125\33\29\59\255\90\173\100\121\49","\35\200\29\28\72\115\20\154")))();break;end if (v28==(0 -(0 -0))) then local v30=0 + 0 ;local v31;while true do if (v30==(1180 -(1123 + 57))) then v31=0 + 0 ;while true do if (v31==(885 -(261 + 624))) then local v32=0 -0 ;while true do if (v32==0) then v9:Destroy();print(v7("\56\188\210\218\158\63\116\62\173\208\209\153\41\48\88","\84\121\223\177\191\237\76"));v32=1081 -(1020 + 60) ;end if (v32==(1424 -(630 + 793))) then v31=3 -2 ;break;end end end if (v31==(4 -3)) then v28=(3356 -2403) -((1231 -429) + 21 + 129) ;break;end end break;end end end end break;end end break;end end break;end end else v11.Text=v7("\146\88\223\161\54\89\52\129\144\83\208","\161\219\54\169\192\90\48\80");end end);
