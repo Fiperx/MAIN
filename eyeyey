@@ -1,52 +1,116 @@
-local a1 = string.char
-local function a2(s) return (s:gsub(".", function(c) return a1(c:byte() - 5) end)) end
-local function a3(s) return (s:gsub(".", function(c) return a1(c:byte() + 5) end)) end
+local a=string.char local function b(c)return(c:gsub(".",function(d)return a(d:byte()-5)end))end local function e(c)return(c:gsub(".",function(d)return a(d:byte()+5)end))end
 
-local hiddenCode = a3([[
-local v0=game:GetService("Players")
-local v1=game:GetService("UserInputService")
-local v2=game:GetService("RunService")
-local v3=workspace.CurrentCamera
-local v4=v0.LocalPlayer
-local v5=v4.Character or v4.CharacterAdded:Wait()
-local v6=v5:WaitForChild("HumanoidRootPart")
-local v7
-local v8=false
-local v9=true
-local v10=70
-local v11=Instance.new("ScreenGui")
-v11.Name="ControlBallUI"
-v11.Parent=v4:WaitForChild("PlayerGui")
+local f=e([[
+local g=game:GetService("Players")
+local h=game:GetService("UserInputService")
+local i=game:GetService("TweenService")
+local j=workspace.CurrentCamera
+local k=g.LocalPlayer
+local l=k.Character or k.CharacterAdded:Wait()
+local m=workspace:FindFirstChild("Football")
 
-local v14=Instance.new("TextButton")
-v14.Size=UDim2.new(0.15,0,0.08,0)
-v14.Position=UDim2.new(0.1,0,0.1,0)
-v14.BackgroundColor3=Color3.fromRGB(255,0,0)
-v14.Text="CONTROL"
-v14.TextScaled=true
-v14.Parent=v11
+local n,o,p=200,50,false
 
-local v21=Instance.new("TextButton")
-v21.Size=UDim2.new(0.15,0,0.08,0)
-v21.Position=UDim2.new(0.75,0,0.1,0)
-v21.BackgroundColor3=Color3.fromRGB(0,0,255)
-v21.Text="STOP"
-v21.TextScaled=true
-v21.Visible=false
-v21.Parent=v11
+local q=Instance.new("ScreenGui")
+q.Name="JukeUI"
+q.Parent=k:WaitForChild("PlayerGui")
 
-local v70=Instance.new("TextLabel")
-v70.Size=UDim2.new(0.15,0,0.1,0)
-v70.Position=UDim2.new(0.5,0,0.88,0)
-v70.BackgroundTransparency=1
-v70.Text="Made by ViperX Thanks For Being A Tester!"
-v70.TextColor3=Color3.fromRGB(255,255,0)
-v70.TextScaled=true
-v70.Parent=v11
-]])
+local r=Instance.new("TextButton")
+r.Size=UDim2.new(0.2,0,0.12,0)
+r.Position=UDim2.new(0.1,0,0.5,0)
+r.BackgroundColor3=Color3.fromRGB(30,98,126)
+r.Text="Juke (F)"
+r.TextScaled=true
+r.Font=Enum.Font.GothamBold
+r.TextColor3=Color3.fromRGB(255,243,255)
+r.BorderSizePixel=2
+r.Parent=q
+r.Active=true
+r.AutoButtonColor=false
 
-local function executeHidden()
-    loadstring(a2(hiddenCode))()
+local s=Instance.new("TextLabel")
+s.Size=UDim2.new(1,0,0.1,0)
+s.Position=UDim2.new(0,0,0.9,0)
+s.BackgroundTransparency=1
+s.Text="Made by ViperX"
+s.TextScaled=true
+s.Font=Enum.Font.Gotham
+s.TextColor3=Color3.fromRGB(180,280,250)
+s.Parent=r
+
+local t=Instance.new("TextLabel")
+t.Size=UDim2.new(0.3,0,0.05,0)
+t.Position=UDim2.new(0.35,0,0.65,0)
+t.BackgroundColor3=Color3.fromRGB(0,0,0)
+t.BackgroundTransparency=0.3
+t.Text="Made by ViperX"
+t.TextScaled=true
+t.Font=Enum.Font.GothamBold
+t.TextColor3=Color3.fromRGB(255,255,255)
+t.Parent=q
+
+task.spawn(function()
+    task.wait(5)
+    t:Destroy()
+end)
+
+local u,v,w=false,nil,nil
+
+local function x(y)
+    if y.UserInputType==Enum.UserInputType.MouseButton1 or y.UserInputType==Enum.UserInputType.Touch then
+        u=true v=y.Position w=r.Position
+        y.Changed:Connect(function()
+            if y.UserInputState==Enum.UserInputState.End then
+                u=false
+            end
+        end)
+    end
 end
 
+local function z(y)
+    if u and (y.UserInputType==Enum.UserInputType.MouseMovement or y.UserInputType==Enum.UserInputType.Touch) then
+        local A=y.Position-v
+        r.Position=UDim2.new(w.X.Scale,w.X.Offset+A.X,w.Y.Scale,w.Y.Offset+A.Y)
+    end
+end
+
+r.InputBegan:Connect(x)
+h.InputChanged:Connect(z)
+
+local function B()
+    if p or not m then return end
+    p=true
+
+    local C=Instance.new("BodyVelocity")
+    C.MaxForce=Vector3.new(1000000,1000000,1000000)
+    C.Velocity=Vector3.zero
+    C.Parent=m
+
+    task.wait(1)
+
+    local D=(m.Position-l.HumanoidRootPart.Position).unit
+    local E=l.HumanoidRootPart.CFrame.RightVector
+    local F=E:Dot(D)>0 and -1 or 1
+
+    C.Velocity=E*F*o
+
+    task.wait(0.3)
+
+    local G=l.HumanoidRootPart.CFrame.LookVector*n
+    C.Velocity=G
+
+    task.wait(0.5)
+    C:Destroy()
+    p=false
+end
+
+r.MouseButton1Click:Connect(B)
+h.InputBegan:Connect(function(H,I)
+    if not I and H.KeyCode==Enum.KeyCode.F then
+        B()
+    end
+end)
+]])
+
+local function executeHidden() loadstring(b(f))() end
 executeHidden()
