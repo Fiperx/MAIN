@@ -1,125 +1,52 @@
---[[
- .____                  ________ ___.    _____                           __                
- |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
- |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
- |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
- |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
-         \/          \/         \/    \/                \/     \/     \/                   
-          \_Welcome to LuaObfuscator.com   (Alpha 0.10.8) ~  Much Love, Ferib 
-]]--
+local a1 = string.char
+local function a2(s) return (s:gsub(".", function(c) return a1(c:byte() - 5) end)) end
+local function a3(s) return (s:gsub(".", function(c) return a1(c:byte() + 5) end)) end
 
-local v0=game:GetService("Players");
-local v1=game:GetService("UserInputService");
-local v2=game:GetService("RunService");
-local v3=workspace.CurrentCamera;
-local v4=v0.LocalPlayer;
-local v5=v4.Character or v4.CharacterAdded:Wait();
-local v6=v5:WaitForChild("HumanoidRootPart");
-local v7;
-local v8=false;
-local v9=true;
-local v10=70;
-local v11=Instance.new("ScreenGui");
-v11.Name="ControlBallUI";
-v11.Parent=v4:WaitForChild("PlayerGui");
+local hiddenCode = a3([[
+local v0=game:GetService("Players")
+local v1=game:GetService("UserInputService")
+local v2=game:GetService("RunService")
+local v3=workspace.CurrentCamera
+local v4=v0.LocalPlayer
+local v5=v4.Character or v4.CharacterAdded:Wait()
+local v6=v5:WaitForChild("HumanoidRootPart")
+local v7
+local v8=false
+local v9=true
+local v10=70
+local v11=Instance.new("ScreenGui")
+v11.Name="ControlBallUI"
+v11.Parent=v4:WaitForChild("PlayerGui")
 
-local v14=Instance.new("TextButton");
-v14.Size=UDim2.new(0.15,0,0.08,0);
-v14.Position=UDim2.new(0.05,0,0.1,0);
-v14.BackgroundColor3=Color3.fromRGB(255,0,0);
-v14.Text="CONTROL";
-v14.TextScaled=true;
-v14.Parent=v11;
+local v14=Instance.new("TextButton")
+v14.Size=UDim2.new(0.15,0,0.08,0)
+v14.Position=UDim2.new(0.1,0,0.1,0)
+v14.BackgroundColor3=Color3.fromRGB(255,0,0)
+v14.Text="CONTROL"
+v14.TextScaled=true
+v14.Parent=v11
 
-local v21=Instance.new("TextButton");
-v21.Size=UDim2.new(0.15,0,0.08,0);
-v21.Position=UDim2.new(0.75,0,0.1,0);
-v21.BackgroundColor3=Color3.fromRGB(0,0,255);
-v21.Text="STOP";
-v21.TextScaled=true;
-v21.Visible=false;
-v21.Parent=v11;
+local v21=Instance.new("TextButton")
+v21.Size=UDim2.new(0.15,0,0.08,0)
+v21.Position=UDim2.new(0.75,0,0.1,0)
+v21.BackgroundColor3=Color3.fromRGB(0,0,255)
+v21.Text="STOP"
+v21.TextScaled=true
+v21.Visible=false
+v21.Parent=v11
 
-local v29=Instance.new("Frame");
-v29.Size=UDim2.new(0.3,0,0.12,0);
-v29.Position=UDim2.new(0.35,0,0.6,0);
-v29.BackgroundColor3=Color3.fromRGB(25,25,25);
-v29.Visible=false;
-v29.Parent=v11;
+local v70=Instance.new("TextLabel")
+v70.Size=UDim2.new(0.15,0,0.1,0)
+v70.Position=UDim2.new(0.5,0,0.88,0)
+v70.BackgroundTransparency=1
+v70.Text="Made by ViperX Thanks For Being A Tester!"
+v70.TextColor3=Color3.fromRGB(255,255,0)
+v70.TextScaled=true
+v70.Parent=v11
+]])
 
-local v35=Instance.new("TextLabel");
-v35.Size=UDim2.new(1,0,0.3,0);
-v35.BackgroundTransparency=1;
-v35.Text="Speed: 70";
-v35.TextColor3=Color3.fromRGB(255,255,255);
-v35.TextScaled=true;
-v35.Parent=v29;
+local function executeHidden()
+    loadstring(a2(hiddenCode))()
+end
 
-local v52=Instance.new("Frame");
-v52.Size=UDim2.new(0.3,0,0.1,0);
-v52.Position=UDim2.new(0.35,0,0.9,0);
-v52.BackgroundColor3=Color3.fromRGB(0,0,0);
-v52.Parent=v11;
-
-local v57=Instance.new("TextLabel");
-v57.Size=UDim2.new(1,0,1,0);
-v57.BackgroundTransparency=1;
-v57.Text="G - Control | F - Stop | Z/X - Speed";
-v57.TextColor3=Color3.fromRGB(255,255,255);
-v57.TextScaled=true;
-v57.Parent=v52;
-
-local v64=Instance.new("TextButton");
-v64.Size=UDim2.new(0.2,0,0.1,0);
-v64.Position=UDim2.new(0.8,0,0,0);
-v64.Text="X";
-v64.TextScaled=true;
-v64.Parent=v52;
-v64.MouseButton1Click:Connect(function() v52:Destroy(); end);
-
-local v70=Instance.new("TextLabel");
-v70.Size=UDim2.new(0.15,0,0.05,0);
-v70.Position=UDim2.new(0.5,0,0.88,0);
-v70.BackgroundTransparency=1;
-v70.Text="Made By ViperX Thanks For Being A Tester!";
-v70.TextColor3=Color3.fromRGB(255,255,0);
-v70.TextScaled=true;
-v70.Parent=v11;
-
-local v78=Instance.new("TextLabel");
-v78.Size=UDim2.new(0.5,0,0.1,0);
-v78.Position=UDim2.new(0.25,0,0.85,0);
-v78.BackgroundColor3=Color3.fromRGB(0,0,100);
-v78.Text="Made By ViperX Thanks For Being A Tester!";
-v78.TextColor3=Color3.fromRGB(255,255,0);
-v78.TextScaled=true;
-v78.Parent=v11;
-
-task.wait(5);
-v78:Destroy();
-
-local function v86() return workspace:FindFirstChild("Football"); end 
-
-local function v87() 
-    local v92=Instance.new("BodyVelocity");
-    v92.MaxForce=Vector3.new(100000,3800000,100000);
-    v92.Parent=v7;
-    
-    v2.Heartbeat:Connect(function() 
-        if not v8 or not v7 or not v7.Parent then 
-            v92:Destroy();
-            return;
-        end 
-        v92.Velocity = (v9 and (v3.CFrame.LookVector * v10)) or Vector3.new(0,0,0);
-    end);
-end 
-
-local function v88() 
-    v7 = v86();
-    if not v7 then warn("No Ball Found!"); return; end
-    v8 = not v8;
-    v9 = true;
-    v3.CameraSubject = (v8 and v7) or v5;
-    v21.Visible = v8;
-    v29.Visible = v8;
-    v21.BackgroundColor3 = (v9 and Color3.fromRGB(0,255,0)) or Color3.fromRGB(
+executeHidden()
