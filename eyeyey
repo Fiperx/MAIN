@@ -8,122 +8,113 @@
           \_Welcome to LuaObfuscator.com   (Alpha 0.10.8) ~  Much Love, Ferib 
 ]]--
 
-local v0=game:GetService("Players")
-local v1=game:GetService("UserInputService")
-local v2=game:GetService("RunService")
-local v3=workspace.CurrentCamera
-local v4=v0.LocalPlayer
-local v5=v4.Character or v4.CharacterAdded:Wait()
-local v6=v5:WaitForChild("HumanoidRootPart")
+local v0 = game:GetService("Players")
+local v1 = game:GetService("UserInputService")
+local v2 = game:GetService("RunService")
+local v3 = workspace.CurrentCamera
+local v4 = v0.LocalPlayer
+local v5 = v4.Character or v4.CharacterAdded:Wait()
+local v6 = v5:WaitForChild("HumanoidRootPart")
 
 local v7
-local v8=false
-local v9=true
-local v10=70
+local v8 = false
+local v9 = true
+local v10 = 70
 
-local v11=Instance.new("ScreenGui")
-v11.Name="ControlBallUI"
-v11.Parent=v4:WaitForChild("PlayerGui")
+local v11 = Instance.new("ScreenGui")
+v11.Name = "ControlBallUI"
+v11.Parent = v4:WaitForChild("PlayerGui")
 
-local v14=Instance.new("TextButton")
-v14.Size=UDim2.new(0.15, 0, 0.08, 0)
-v14.Position=UDim2.new(0.1, 0, 0.1, 0)
-v14.BackgroundColor3=Color3.fromRGB(255,0,0)
-v14.Text="CONTROL"
-v14.TextScaled=true
-v14.Parent=v11
+local v14 = Instance.new("TextButton")
+v14.Size = UDim2.new(0.15, 0, 0.08, 0)
+v14.Position = UDim2.new(0.1, 0, 0.1, 0)
+v14.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+v14.Text = "CONTROL"
+v14.TextScaled = true
+v14.Parent = v11
 
-local v21=Instance.new("TextButton")
-v21.Size=UDim2.new(0.15, 0, 0.08, 0)
-v21.Position=UDim2.new(0.75, 0, 0.1, 0)
-v21.BackgroundColor3=Color3.fromRGB(0,255,0)
-v21.Text="STOP"
-v21.TextScaled=true
-v21.Visible=false
-v21.Parent=v11
+local v21 = Instance.new("TextButton")
+v21.Size = UDim2.new(0.15, 0, 0.08, 0)
+v21.Position = UDim2.new(0.75, 0, 0.1, 0)
+v21.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+v21.Text = "STOP"
+v21.TextScaled = true
+v21.Visible = false
+v21.Parent = v11
 
-local v29=Instance.new("Frame")
-v29.Size=UDim2.new(0.3, 0, 0.12, 0)
-v29.Position=UDim2.new(0.35, 0, 0.6, 0)
-v29.BackgroundColor3=Color3.fromRGB(25, 25, 25)
-v29.Visible=false
-v29.Parent=v11
+local v29 = Instance.new("Frame")
+v29.Size = UDim2.new(0.3, 0, 0.12, 0)
+v29.Position = UDim2.new(0.35, 0, 0.6, 0)
+v29.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+v29.Visible = false
+v29.Parent = v11
 
-local v35=Instance.new("TextLabel")
-v35.Size=UDim2.new(1, 0, 0.3, 0)
-v35.BackgroundTransparency=1
-v35.Text="Speed: 70"
-v35.TextColor3=Color3.fromRGB(255,255,255)
-v35.TextScaled=true
-v35.Parent=v29
+local v35 = Instance.new("TextLabel")
+v35.Size = UDim2.new(1, 0, 0.3, 0)
+v35.BackgroundTransparency = 1
+v35.Text = "Speed: 70"
+v35.TextColor3 = Color3.fromRGB(255, 255, 255)
+v35.TextScaled = true
+v35.Parent = v29
 
-local v70=Instance.new("TextLabel")
-v70.Size=UDim2.new(0.15, 0, 0.05, 0)
-v70.Position=UDim2.new(0.5, 0, 0.88, 0)
-v70.BackgroundTransparency=1
-v70.Text="Made by ViperX"
-v70.TextColor3=Color3.fromRGB(255,255,0)
-v70.TextScaled=true
-v70.Parent=v11
-
-local v78=Instance.new("TextLabel")
-v78.Size=UDim2.new(0.5, 0, 0.1, 0)
-v78.Position=UDim2.new(0.25, 0, 0.9, 0)
-v78.BackgroundColor3=Color3.fromRGB(0,0,0)
-v78.Text="Thanks For Being A Tester!"
-v78.TextColor3=Color3.fromRGB(255,255,0)
-v78.TextScaled=true
-v78.Parent=v11
+local v70 = Instance.new("TextLabel")
+v70.Size = UDim2.new(0.15, 0, 0.05, 0)
+v70.Position = UDim2.new(0.5, 0, 0.88, 0)
+v70.BackgroundTransparency = 1
+v70.Text = "Made By ViperX Thanks For Being A Tester!"
+v70.TextColor3 = Color3.fromRGB(255, 255, 0)
+v70.TextScaled = true
+v70.Parent = v11
 
 task.wait(5)
-v78:Destroy()
+v70:Destroy()
 
 local function findBall()
     return workspace:FindFirstChild("Football")
 end
 
 local function controlBall()
-    v7=findBall()
+    v7 = findBall()
     if not v7 then warn("No Ball Found!") return end
-    v8=not v8
-    v9=true
-    v3.CameraSubject=(v8 and v7) or v5
-    v21.Visible=v8
-    v29.Visible=v8
+    v8 = not v8
+    v9 = true
+    v3.CameraSubject = (v8 and v7) or v5
+    v21.Visible = v8
+    v29.Visible = v8
     if v8 then
-        local v92=Instance.new("BodyVelocity")
-        v92.MaxForce=Vector3.new(100000, 500000, 500000)
-        v92.Parent=v7
+        local v92 = Instance.new("BodyVelocity")
+        v92.MaxForce = Vector3.new(100000, 500000, 500000)
+        v92.Parent = v7
         v2.Heartbeat:Connect(function()
             if not v8 or not v7 or not v7.Parent then
                 v92:Destroy()
                 return
             end
-            v92.Velocity=(v9 and (v3.CFrame.LookVector * v10)) or Vector3.new(0,0,0)
+            v92.Velocity = (v9 and (v3.CFrame.LookVector * v10)) or Vector3.new(0, 0, 0)
         end)
     end
 end
 
 local function stopBall()
-    v9=not v9
-    v21.BackgroundColor3=v9 and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
+    v9 = not v9
+    v21.BackgroundColor3 = v9 and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
 end
 
 v1.InputBegan:Connect(function(v98)
-    if v98.KeyCode==Enum.KeyCode.Z then
-        v10=math.max(v10-10,10)
-        v35.Text="Speed: " .. tostring(v10)
-    elseif v98.KeyCode==Enum.KeyCode.X then
-        v10=math.min(v10+10,350)
-        v35.Text="Speed: " .. tostring(v10)
+    if v98.KeyCode == Enum.KeyCode.Z then
+        v10 = math.max(v10 - 10, 10)
+        v35.Text = "Speed: " .. tostring(v10)
+    elseif v98.KeyCode == Enum.KeyCode.X then
+        v10 = math.min(v10 + 10, 350)
+        v35.Text = "Speed: " .. tostring(v10)
     end
 end)
 
-v1.InputBegan:Connect(function(v99,v100)
+v1.InputBegan:Connect(function(v99, v100)
     if v100 then return end
-    if v99.KeyCode==Enum.KeyCode.G then
+    if v99.KeyCode == Enum.KeyCode.G then
         controlBall()
-    elseif v99.KeyCode==Enum.KeyCode.F then
+    elseif v99.KeyCode == Enum.KeyCode.F then
         stopBall()
     end
 end)
